@@ -259,6 +259,69 @@
       "account_id": "1egn64ciglqp4qlf1",
       "user_id": "1egn64e18lqjkip3q",
       "created_at": "2023-12-28T12:12:25.488Z"
+    },
+    {
+      "id": "1egn64864lqtbu7dk",
+      "type": "income",
+      "name": "апап",
+      "sum": 100,
+      "account_id": "1egn64ciglqp4qlf1",
+      "user_id": "1egn64e18lqjkip3q",
+      "created_at": "2023-12-31T10:06:30.871Z"
+    },
+    {
+      "id": "1egn647twlqtbzawl",
+      "type": "expense",
+      "name": "fdf",
+      "sum": 123,
+      "account_id": "1egn64ciglqp4qlf1",
+      "user_id": "1egn64e18lqjkip3q",
+      "created_at": "2023-12-31T10:10:28.724Z"
+    },
+    {
+      "id": "1egn64axclqtbzt2u",
+      "type": "expense",
+      "name": "100",
+      "sum": 100,
+      "account_id": "1egn64ciglqp4qlf1",
+      "user_id": "1egn64e18lqjkip3q",
+      "created_at": "2023-12-31T10:10:52.277Z"
+    },
+    {
+      "id": "1egn64f0klqtc1lic",
+      "type": "income",
+      "name": "fdf",
+      "sum": 200,
+      "account_id": "1egn64ciglqp4qlf1",
+      "user_id": "1egn64e18lqjkip3q",
+      "created_at": "2023-12-31T10:12:15.779Z"
+    },
+    {
+      "id": "1egn6465wlqtc2jfz",
+      "type": "income",
+      "name": "fdf",
+      "sum": 100,
+      "account_id": "1egn64ciglqp4qlf1",
+      "user_id": "1egn64e18lqjkip3q",
+      "created_at": "2023-12-31T10:12:59.758Z"
+    },
+    {
+      "id": "1egn645k0lqtc36de",
+      "type": "income",
+      "name": "100",
+      "sum": 100,
+      "account_id": "1egn64ciglqp4qlf1",
+      "user_id": "1egn64e18lqjkip3q",
+      "created_at": "2023-12-31T10:13:29.473Z"
+    },
+    {
+      "id": "1egn64atklqtc48ue",
+      "type": "income",
+      "name": "fdf",
+      "sum": 100,
+      "account_id": "1egn64ciglqp4qlf1",
+      "user_id": "1egn64e18lqjkip3q",
+      "created_at": "2023-12-31T10:14:19.334Z"
     }
   ]
 }

@@ -82,12 +82,15 @@ class TransactionsPage {
       if (response.success) {
         this.renderTitle(response.data.name);
         console.log(options);
-        Transaction.list(options, (err, response) => {
-          if (response.success) {
-            console.log(response);
-            this.renderTransactions(response.data);
+        Transaction.list(
+          { account_id: options.account_id },
+          (err, response) => {
+            if (response.success) {
+              this.clear();
+              this.renderTransactions(response.data);
+            }
           }
-        });
+        );
       }
     });
   }
@@ -186,7 +189,7 @@ class TransactionsPage {
   renderTransactions(data) {
     console.log(data);
     data.forEach((transaction) => {
-      this.element.appendChild(this.getAccountHTML(transaction));
+      this.element.appendChild(this.getTransactionHTML(transaction));
     });
   }
 }

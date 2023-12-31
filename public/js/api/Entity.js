@@ -10,11 +10,12 @@ class Entity {
    * */
   static URL = "";
   static list(data, callback) {
+    console.log("Список транзакций");
     createRequest({
+      method: "GET",
       data,
       url: this.URL,
       callback,
-      method: "GET",
     });
   }
 
