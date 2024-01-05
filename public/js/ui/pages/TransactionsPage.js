@@ -39,6 +39,19 @@ class TransactionsPage {
     this.element
       .querySelector(".remove-account")
       .addEventListener("click", () => this.removeAccount());
+
+    document.addEventListener("click", (e) => {
+      if (
+        e.target.classList.contains("transaction__remove") ||
+        e.target.parentNode.classList.contains("transaction__remove")
+      ) {
+        if (e.target.classList.contains("transaction__remove")) {
+          this.removeTransaction(e.target.dataset.id);
+        } else {
+          this.removeTransaction(e.target.parentNode.dataset.id);
+        }
+      }
+    });
   }
 
   /**
@@ -68,7 +81,18 @@ class TransactionsPage {
    * По удалению транзакции вызовите метод App.update(),
    * либо обновляйте текущую страницу (метод update) и виджет со счетами
    * */
-  removeTransaction(id) {}
+  removeTransaction(id) {
+    if (confirm("Вы действительно хотите удалить эту транзакцию?")) {
+      Transaction.remove({ id }, (err, response) => {
+        console.log(id, err, response);
+        if (!err && response.success) {
+          this.clear();
+          App.updateWidgets();
+          App.updateForms();
+        }
+      });
+    }
+  }
 
   /**
    * С помощью Account.get() получает название счёта и отображает
@@ -81,12 +105,11 @@ class TransactionsPage {
     Account.get(options.account_id, (err, response) => {
       if (response.success) {
         this.renderTitle(response.data.name);
-        console.log(options);
         Transaction.list(
           { account_id: options.account_id },
           (err, response) => {
             if (response.success) {
-              this.clear();
+              // this.clear();
               this.renderTransactions(response.data);
             }
           }
@@ -152,34 +175,34 @@ class TransactionsPage {
    * item - объект с информацией о транзакции
    * */
   getTransactionHTML(item) {
-    const element = document.createElement("div");
-    element.dataset.id = item.id;
-    element.className = `transaction transaction_${item.type} row`;
-    element.innerHTML = `<div class="col-md-7 transaction__details">
-          <div class="transaction__icon">
-              <span class="fa fa-money fa-2x"></span>
-          </div>
-          <div class="transaction__info">
-              <h4 class="transaction__title">${item.name}</h4>
-              <!-- дата -->
-              <div class="transaction__date">${this.formatDate(
-                item.created_at
-              )}</div>
-          </div>
+    return `<div class="transaction transaction_${item.type} row">
+        <div class="col-md-7 transaction__details">
+        <div class="transaction__icon">
+            <span class="fa fa-money fa-2x"></span>
         </div>
-        <div class="col-md-3">
-          <div class="transaction__summ">
-          <!--  сумма -->
-              ${item.sum} <span class="currency">₽</span>
-          </div>
+        <div class="transaction__info">
+            <h4 class="transaction__title">${item.name}</h4>
+            <!-- дата -->
+            <div class="transaction__date">${this.formatDate(
+              item.created_at
+            )}</div>
         </div>
-        <div class="col-md-2 transaction__controls">
-            <!-- в data-id нужно поместить id -->
-            <button class="btn btn-danger transaction__remove" data-id="12">
-                <i class="fa fa-trash"></i>  
-            </button>
-        </div>`;
-    return element;
+      </div>
+      <div class="col-md-3">
+        <div class="transaction__summ">
+        <!--  сумма -->
+            ${item.sum} <span class="currency">₽</span>
+        </div>
+      </div>
+      <div class="col-md-2 transaction__controls">
+          <!-- в data-id нужно поместить id -->
+          <button class="btn btn-danger transaction__remove" data-id="${
+            item.id
+          }">
+              <i class="fa fa-trash"></i>  
+          </button>
+      </div>
+    </div>`;
   }
 
   /**
@@ -187,9 +210,8 @@ class TransactionsPage {
    * используя getTransactionHTML
    * */
   renderTransactions(data) {
-    console.log(data);
-    data.forEach((transaction) => {
-      this.element.appendChild(this.getTransactionHTML(transaction));
-    });
+    this.element.querySelector(".content").innerHTML = data
+      .map((transaction) => this.getTransactionHTML(transaction))
+      .join("");
   }
 }
